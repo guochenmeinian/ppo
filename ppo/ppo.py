@@ -116,7 +116,7 @@ class PPO(BasePolicyGradient):
                 torch.save(self.critic.state_dict(), './ppo_critic.pth')
         
         # save graph
-        self._save_learning_curve(alg_name='REINFORCE')
+        self._save_learning_curve(alg_name='PPO')
 
     def evaluate(self, batch_obs, batch_acts, batch_rtgs):
         """

@@ -33,10 +33,6 @@ class REINFORCE(BasePolicyGradient):
         t_so_far = 0 # Timesteps simulated so far
         i_so_far = 0 # Iterations ran so far
         
-        # record the timesteps and average episodic rewards
-        self.logger['timesteps'] = []
-        self.logger['avg_ep_rews'] = []
-        
         while t_so_far < total_timesteps:
             batch_obs, batch_acts, batch_log_probs, batch_rtgs, batch_lens = self.rollout()
     
@@ -50,12 +46,9 @@ class REINFORCE(BasePolicyGradient):
             self.logger['t_so_far'] = t_so_far
             self.logger['i_so_far'] = i_so_far
             
-            # Record timesteps and average episodic rewards
-            self.logger['timesteps'].append(t_so_far)
             if 'batch_rews' in self.logger and self.logger['batch_rews']:
                 # 确保正确计算平均回报
                 avg_ep_rew = np.mean([np.sum(ep_rews) for ep_rews in self.logger['batch_rews']])
-                self.logger['avg_ep_rews'].append(avg_ep_rew)
                 print(f"Iteration {i_so_far}, Timesteps {t_so_far}, Average Return: {avg_ep_rew:.2f}")
             
             # This is the loop where we update our network for some n epochs

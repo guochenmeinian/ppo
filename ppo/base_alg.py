@@ -301,6 +301,15 @@ class BasePolicyGradient:
         print(f"------------------------------------------------------", flush=True)
         print(flush=True)
 
+        # Save learning curve points
+        if 'timesteps' not in self.logger:
+            self.logger['timesteps'] = []
+        if 'avg_ep_rews' not in self.logger:
+            self.logger['avg_ep_rews'] = []
+
+        self.logger['timesteps'].append(t_so_far)
+        self.logger['avg_ep_rews'].append(np.mean([np.sum(ep_rews) for ep_rews in self.logger['batch_rews']]))
+
         # Reset batch-specific logging data
         self.logger['batch_lens'] = []
         self.logger['batch_rews'] = []
