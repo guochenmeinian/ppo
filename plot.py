@@ -3,9 +3,9 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
-envs = ["Pendulum-v1", "BipedalWalker-v3", "LunarLanderContinuous-v3"]
+envs = ["Pendulum-v1", "BipedalWalker-v3", "LunarLanderContinuous-v2"]
 seeds = [555, 666, 777]
-alg = "REINFORCE"
+alg = "PPO"
 
 for env in envs:
     all_timesteps, all_rewards = [], []
